@@ -15,6 +15,11 @@ export class AppComponent {
   canvas: any;
 
   @ViewChild('video', { static: false }) videoEl: ElementRef | undefined;
+  @ViewChild('presentPlayer', { static: false }) presentPlayerEl:
+    | ElementRef
+    | undefined;
+
+  @ViewChild('canvas', { static: false }) canvasEl: ElementRef | undefined;
 
   constructor() {}
 
@@ -24,6 +29,7 @@ export class AppComponent {
 
   ngAfterViewInit() {
     const videoEl = this.videoEl?.nativeElement;
+    console.log(videoEl);
     if (videoEl) {
       console.log('yes');
       const video = new fabric.Image(videoEl, {
@@ -38,6 +44,10 @@ export class AppComponent {
       });
       setTimeout(() => {
         video?.getElement()?.play();
+
+        video.scaleToWidth(800);
+        video.scaleToHeight(600);
+
         this.canvas.add(video);
 
         const that = this;
@@ -50,7 +60,7 @@ export class AppComponent {
     }
   }
 
-  handleDrop(e: any) {
+  handleDrop(e: any): boolean {
     this.file = e.dataTransfer.files[0];
     const reader = new FileReader();
 
@@ -72,5 +82,12 @@ export class AppComponent {
     };
     reader.readAsDataURL(this.file);
     return false;
+  }
+
+  startPresent(): void {
+    const video = this.presentPlayerEl?.nativeElement;
+    console.log(this.canvas);
+    const stream = this.canvasEl?.nativeElement.captureStream();
+    video.srcObject = stream;
   }
 }

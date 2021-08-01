@@ -1,17 +1,43 @@
-<div
-  class="canvas-container"
-  (dragover)="(false)"
-  (dragend)="(false)"
-  (drop)="handleDrop($event)"
->
-  <canvas id="canvas" class="canvas" width="800" height="600"> </canvas>
+<div class="wrapper">
+  <div class="present-module">
+    <div
+      class="canvas-container"
+      (dragover)="(false)"
+      (dragend)="(false)"
+      (drop)="handleDrop($event)"
+    >
+      <canvas #canvas id="canvas" class="canvas" width="800" height="500">
+      </canvas>
+    </div>
+
+    <video
+      style="display: none"
+      id="video-player"
+      #video
+      width="800"
+      height="450"
+      muted
+    >
+      <source src="/assets/bgv.webm" type="video/webm" />
+
+      Sorry, your browser doesn't support embedded videos.
+    </video>
+
+    <video
+      #presentPlayer
+      id="present-player"
+      width="800"
+      height="450"
+      controls
+      playsinline
+      autoplay
+      muted
+    ></video>
+  </div>
+  <div class="controls-module">
+    <button class="btn btn-primary" (click)="startPresent()">Record</button>
+  </div>
 </div>
-
-<video id="video-player" #video width="800" height="600" muted>
-  <source src="/assets/bgv.webm" type="video/webm" />
-
-  Sorry, your browser doesn't support embedded videos.
-</video>
 
 <!-- <video #video width="240" height="180" autoplay loop>
   <source src="https://html5demos.com/assets/dizzy.mp4" />

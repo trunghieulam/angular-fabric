@@ -1,3 +1,18 @@
+.wrapper {
+  display: flex;
+  flex-flow: column;
+  .controls-module {
+    margin-top: 10px;
+  }
+  .present-module {
+    display: flex;
+    flex-flow: row;
+    #present-player {
+      border: 1px solid #404040;
+    }
+  }
+}
+
 .canvas-container .canvas {
   border: 0.5px solid #404040;
 }
